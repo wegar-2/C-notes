@@ -1,2 +1,11 @@
 */bin
 */obj
+*/*.layout
+*/*.cbp
+*/*.depend
+
+*/*/bin
+*/*/obj
+*/*/*.depend
+*/*/*.cbp
+*/*/*.layout
