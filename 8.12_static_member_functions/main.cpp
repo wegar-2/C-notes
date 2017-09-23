@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ValueStorage.hpp"
+#include "Cat.hpp"
 
 using namespace std;
 
@@ -12,5 +13,10 @@ int main()
     cout << "vs2.GetCounter() = " << vs2.GetCounter() << endl;
     cout << "vs2.GetValue() = " << vs2.GetValue() << endl;
     cout << "ValueStorage::GetCounter(): " << ValueStorage::GetCounter() << endl;
+    cout << "Cats..." << endl;
+    Cat cat1 = Cat();
+    cout << "Cat::GetCatsCounter(): " << Cat::GetCatsCounter() << endl;
+    Cat cat2 = Cat();
+    cout << "Cat::GetCatsCounter(): " << Cat::GetCatsCounter() << endl;
     return 0;
 }
