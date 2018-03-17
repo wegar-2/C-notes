@@ -1,5 +1,6 @@
 #include <iostream>
 #include "SimpleClass.hpp"
+#include "TestClass.hpp"
 
 using namespace std;
 
@@ -17,5 +18,10 @@ int main()
     cout << endl;
     cout << "scObj3: " << endl;
     scObj3.DescribeThisObject();
+    cout << "\n\n\n\n" << endl;
+
+    TestClass tc1 = TestClass();
+    tc1.DisplayObject();
+
     return 0;
 }
