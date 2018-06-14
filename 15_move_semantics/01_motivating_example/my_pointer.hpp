@@ -53,6 +53,22 @@ class MyPointer {
         /* ****************************************************************** */
         /* ****************** move semantics implementation ***************** */
 
+        // move constructor - the argument is r-vale reference
+        MyPointer(const MyPointer&& rhs) {
+            cout << "Class MyPointer move constructor called..." << endl;
+            delete pObj;
+            pObj = rhs.pObj;
+            delete rhs.pObj;
+        }
+
+        // move assignment - assignment operator
+        MyPointer& operator=(const MyPointer&& rhs) {
+            cout << "Class MyPointer move assignment operator called..." << endl;
+            delete pObj;
+            pObj = rhs.pObj;
+            delete rhs.pObj;
+            return *this;
+        }
 
     private:
         T* pObj;
