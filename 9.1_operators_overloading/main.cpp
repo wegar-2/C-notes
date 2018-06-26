@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Point2D.hpp"
 
-using namespace std;
 
 /*
 Operators can be overloaded in the following manners:
@@ -15,8 +14,7 @@ int main()
     // operator overloaded
     Point2D point1 = Point2D(10, 20);
     point1.DisplayCoords();
-    Point2D point1_copy;
-    point1_copy = (++point1);
+    Point2D point1_copy = (++point1);
     point1.DisplayCoords();
     point1_copy.DisplayCoords();
 //    Point2D point2 = ++point1;

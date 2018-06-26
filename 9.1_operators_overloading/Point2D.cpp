@@ -1,34 +1,42 @@
 #include "Point2D.hpp"
 #include <iostream>
 
-using namespace std;
 
-// initializing the static member variable
-// int Point2D::PointsCounter = 0;
+/* constructors, destructor and assignment operator */
 
 Point2D::Point2D()
 {
-    cout << "\n\n" << endl;
-    cout << "Class Point2D non-parametrized constructor called..." << endl;
+    std::cout << "\n\n" << std::endl;
+    std::cout << "Class Point2D non-parametrized constructor called..." << std::endl;
     pCoordX = new double(1.0);
     pCoordY = new double(2.0);
     //pPointID = new int(++PointsCounter);
-    //cout << "Id of the current point: " << *pPointID << endl;
+    //std::cout << "Id of the current point: " << *pPointID << std::endl;
 }
+
+
+Point2D::Point2D(double value)
+{
+    std::cout << "\n\n" << std::endl;
+    std::cout << "Class Point2D one-parameter constructor called..." << std::endl;
+    pCoordX = new double(value);
+    pCoordY = new double(value);
+}
+
 
 Point2D::Point2D(double CoordX, double CoordY)
 {
-    cout << "\n\n" << endl;
-    cout << "Class Point2D parametrized constructor called..." << endl;
+    std::cout << "\n\n" << std::endl;
+    std::cout << "Class Point2D parametrized constructor called..." << std::endl;
     this->pCoordX = new double(CoordX);
     this->pCoordY = new double(CoordY);
     //pPointID = new int(++PointsCounter);
-  //  cout << "Id of the current point: " << PointsCounter << endl;
+  //  std::cout << "Id of the current point: " << PointsCounter << std::endl;
 }
 
 Point2D::~Point2D()
 {
-    cout << "Class Point2D destructor called..." << endl;
+    std::cout << "Class Point2D destructor called..." << std::endl;
     // deallocate memory to the heap
     delete pCoordX;
     pCoordX = nullptr;
@@ -40,44 +48,146 @@ Point2D::~Point2D()
 
 Point2D::Point2D(const Point2D& rhs)
 {
-    cout << "Class Point2D copy constructor called..." << endl;
-    cout << "\t*(rhs.pCoordX):" << *(rhs.pCoordX) << endl;
+    std::cout << "Class Point2D copy constructor called..." << std::endl;
+    std::cout << "\t*(rhs.pCoordX):" << *(rhs.pCoordX) << std::endl;
     pCoordX = new double(*(rhs.pCoordX));
-    cout << "\t*(rhs.pCoordY):" << *(rhs.pCoordY) << endl;
+    std::cout << "\t*(rhs.pCoordY):" << *(rhs.pCoordY) << std::endl;
     pCoordY = new double(*(rhs.pCoordY));
-    //pPointID = new int(*(rhs.pPointID)+1);
-    // PointsCounter++;
 }
 
-/* When void type is returned the results cannot be used
-e.g. in an assignment. */
-/* void Point2D::operator++()
+
+
+/* getters and setters */
+double Point2D::GetX() const
 {
-    // incrementing every coordinate by 1
-    (*CoordX) += 1;
-    (*CoordY) += 1;
-} */
+    return *pCoordX;
+}
+
+double Point2D::GetY() const
+{
+    return *pCoordY;
+}
+
+void Point2D::SetX(double x)
+{
+    *pCoordX = x;
+}
+
+void Point2D::SetY(double y)
+{
+    *pCoordY = y;
+}
+
+
+/* assignment operator overloading */
+Point2D& Point2D::operator=(const Point2D& rhs)
+{
+    std::cout << "Class Point2D assignment operator called..." << std::endl;
+    if (this == &rhs) {
+        return *this;
+    }
+    else {
+        this->SetX(rhs.GetX());
+        this->SetY(rhs.GetY());
+        return *this;
+    }
+}
+
+
+/* ***************************************************************************** */
+/* ***************************************************************************** */
+/* ***************************************************************************** */
+/* ***************************************************************************** */
+/* ***************************************************************************** */
 
 // pre-incrementation
-Point2D Point2D::operator++()
+const Point2D& Point2D::operator++()
 {
-    cout << "Inside pre-incrementation operator" << endl;
+    std::cout << "Inside pre-incrementation operator" << std::endl;
     (*pCoordX) += 1;
     (*pCoordY) += 1;
     return *this;
 }
 
 // post-incrementation
-Point2D& Point2D::operator++(int postOper)
+const Point2D Point2D::operator++(int)
 {
+
+    Point2D temp(*this);
     (*pCoordX) += 1;
     (*pCoordY) += 1;
+    return temp;
+}
+
+// pre-decrementation
+const Point2D& Point2D::operator--()
+{
+    *pCoordX = *pCoordX - 1;
+    *pCoordY = *pCoordY - 1;
     return *this;
 }
 
+// post-decrementation
+const Point2D Point2D::operator--(int)
+{
+    Point2D temp(*this);
+    *pCoordX = *pCoordX - 1;
+    *pCoordY = *pCoordY - 1;
+    return temp;
+}
+
+
+// addition operator
+Point2D Point2D::operator+(double value) const
+{
+    return Point2D(this->GetX()+value, this->GetY()+value);
+}
+
+Point2D Point2D::operator+(const Point2D& rhs) const
+{
+    return Point2D(this->GetX() + rhs.GetX(), this->GetY() + rhs.GetY());
+}
+
+
+// subtraction operator
+Point2D Point2D::operator-(double value) const
+{
+    return Point2D(this->GetX()-value, this->GetY()-value);
+}
+
+Point2D Point2D::operator-(const Point2D& rhs) const
+{
+    return Point2D(this->GetX() - rhs.GetX(), this->GetY() - rhs.GetY());
+}
+
+
+Point2D Point2D::operator*(double value)
+{
+    return Point2D((this->GetX())*value, (this->GetY())*value);
+}
+
+double& Point2D::operator*()
+{
+    return *pCoordX;
+}
+
+Point2D* Point2D::operator->()
+{
+    std::cout << "Arrow operator of the Point2D class called..." << std::endl;
+    return this;
+}
+
+
+/* ***************************************************************************** */
+/* ***************************************************************************** */
+/* ***************************************************************************** */
+/* ***************************************************************************** */
+/* ***************************************************************************** */
+
+
 void Point2D::DisplayCoords() const
 {
-    //cout << "\n\nDisplaying coordinates of a point with ID: " << *pPointID << endl;
-    cout << "CoordX: " << *pCoordX << endl;
-    cout << "CoordY: " << *pCoordY << endl;
+    //std::cout << "\n\nDisplaying coordinates of a point with ID: " << *pPointID << std::endl;
+    std::cout << "CoordX: " << *pCoordX << std::endl;
+    std::cout << "CoordY: " << *pCoordY << std::endl;
 }
